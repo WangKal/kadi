@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+<div class="container">
+    <div id="notifywin">
+        <div>
+            <div class="flex-container">
+                <div>
+                    <p id="winner_icon">S</p>
+                </div>
+                <div>
+                    <div class="media-body">
+                        <h4 id="winner_text">Hello</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div id="playing-area">
+                {% if play_status == 'playing' %}
+                <div id="circle1">
+                    <div class="playing-card" id="card_{{ to_start }}"></div>
+                </div>
+                {% else %}
+                <div id="circle1">
+                    <div class="playing-card"></div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="col-xs-3">
+                <div id="circle2">
+                    <button class="btn btn-primary" id="pick_c">PICK</button>
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <div id="circle3">
+                    <button class="btn btn-primary" id="undo">UNDO</button>
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <div id="circle4">
+                    <button class="btn btn-primary" id="kadi">KADI</button>
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <div id="circle5">
+                    <button class="btn btn-primary" id="play_end">PLAY</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-stack">
+        {% if play_status == 'playing' %}
+            {% for k, mc in enumerate(my_cards) %}
+            <div class="holdin-p" id="h{{ k }}" style="left: -{{ k }}00px;">
+                <div class="card_{{ k }} card" id="card_{{ mc }}"></div>
+            </div>
+            {% endfor %}
+        {% else %}
+        <div class="holdin-p" id="h0"></div>
+        {% endif %}
+    </div>
+
+    <div id="prev-play">
+        <div>
+            <div>
+                <p id="prev-play-icon"></p>
+            </div>
+            <div id="card-container">
+                <div id="lastcard"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="card_request_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal_table">
+        <div class="modal-content modal_cell">
+            <div class="modal-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
+                                <h3 id="myModalLabel"><i class="fa fa-user"></i> &nbsp; Select the card you want.</h3>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <button class="select-card" id="hearts"></button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button class="select-card" id="diamonds"></button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button class="select-card" id="flowers"></button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button class="select-card" id="spades"></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="form-group">
+                                    <div class="col-xs-4 text-left">
+                                        <button type="button" data-dismiss="modal" class="btn btn-default"><i class="fa fa-times"></i> Close</button>
+                                    </div>
+                                    <div class="col-xs-8"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+

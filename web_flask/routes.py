@@ -1,0 +1,36 @@
+from flask import Blueprint, render_template, request
+
+web_bp = Blueprint('web_bp', __name__)
+
+@web_bp.route('/')
+def home():
+    return render_template('index.html')
+
+@web_bp.route('/register', methods=['GET', 'POST'])
+def register():
+    # Handle registration logic here
+    return render_template('register.html')
+
+@web_bp.route('/login', methods=['GET', 'POST'])
+def login():
+    # Handle login logic here
+    return render_template('login.html')
+
+@web_bp.route('/waiting_bay')
+def waiting_bay():
+    # Handle waiting bay logic here
+    return render_template('waiting_bay.html')
+
+@web_bp.route('/play')
+def play():
+    # Handle play logic here
+    play_status = request.args.get('play_status')
+    plays = request.args.getlist('plays')
+    my_cards = request.args.getlist('my_cards')
+
+    if play_status == 'playing':
+        to_start = plays[-1] if isinstance(plays, list) else plays
+    else:
+        to_start = None
+
+    return render_template('play.html', play_status=play_status, to_start=to_start, my_cards=my_cards)
