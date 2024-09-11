@@ -4,7 +4,7 @@ web_bp = Blueprint('web_bp', __name__)
 
 @web_bp.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('login.html')
 
 @web_bp.route('/register', methods=['GET', 'POST'])
 def register():
