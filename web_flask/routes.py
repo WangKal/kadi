@@ -19,7 +19,10 @@ def login():
 @web_bp.route('/waiting_bay')
 def waiting_bay():
     # Handle waiting bay logic here
-    return render_template('waiting_bay.html')
+    challenge_link = session['sharing_url']
+    challenge = session['challenge']
+    challengeID = session[challengeID]
+    return render_template('waiting_bay.html', challenge_link=challenge_link, challenge=challenge, challengeID=challengeID)
 
 @web_bp.route('/kadi_invite/<link>', methods=['GET'])
 def kadi_invite(link):
