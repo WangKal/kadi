@@ -21,7 +21,7 @@ def waiting_bay():
     # Handle waiting bay logic here
     challenge_link = session['sharing_url']
     challenge = session['challenge']
-    # challengeID = session[challengeID]
+    challengeID = session[challengeID]
     return render_template('waiting_bay.html', challenge_link=challenge_link, challenge=challenge, challengeID=challengeID)
 
 @web_bp.route('/kadi_invite/<link>', methods=['GET'])
