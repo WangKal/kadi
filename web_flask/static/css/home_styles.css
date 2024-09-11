@@ -1,76 +1,54 @@
-/* General Styles */
-body {
+/* Add space to avoid the navbar from overlapping content */
+.main-section {
+    padding-top: 100px;
+    padding-bottom: 50px;
+}
+
+h1, h2 {
     font-family: 'Roboto', sans-serif;
-    scroll-behavior: smooth;
 }
 
-/* Header Styles */
-.navbar-brand {
-    color: #2c3e50 !important;
-}
-
-.nav-link {
-    color: #2c3e50 !important;
-    transition: color 0.3s;
-}
-
-.nav-link:hover {
-    color: #3498db !important;
-}
-
-/* Main Section Styles */
-section#home {
-    background: linear-gradient(135deg, #ece9e6, #ffffff);
-}
-
-section#home h1 {
-    color: #2c3e50;
-}
-
-section#home p {
-    color: #7f8c8d;
-}
-
-section#home .btn-primary {
-    background-color: #3498db;
-    border: none;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-section#home .btn-primary:hover {
-    background-color: #2980b9;
-    transform: scale(1.05);
-}
-
-/* About Section Styles */
-section#about h2 {
-    color: #2c3e50;
-}
-
-section#about p {
-    color: #7f8c8d;
-}
-
-/* Footer Styles */
-footer {
-    position: relative;
-    bottom: 0;
-    width: 100%;
-}
-
-/* Responsive Image */
-img.img-fluid {
+img {
     max-width: 100%;
     height: auto;
+    display: block;
 }
 
-/* Additional Animations */
-@media (max-width: 767px) {
-    section#home .row {
-        text-align: center;
-    }
+/* Ensure both columns have equal height */
+.row.align-items-center {
+    height: 100%;
+}
 
-    section#home .col-md-6 {
-        margin-bottom: 2rem;
-    }
+/* Remove white spaces and ensure full height for both columns */
+.col-md-6 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Ensure proper z-index for the fixed navbar */
+.navbar {
+    z-index: 1000;
+}
+
+/* Button Styling */
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* About section spacing */
+#about {
+    padding: 60px 0;
+}
+
+/* Footer styling */
+footer {
+    background-color: #222;
+    color: #fff;
+    padding: 20px 0;
 }
