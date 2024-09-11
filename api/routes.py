@@ -108,7 +108,7 @@ def register_challenge():
                     'status': True,
                     'message': 'Challenge setup successful!',
                     'sharing_url': sharing_url,
-                    'redirect': url_for('waiting_bay', sharing_url=sharing_url)
+                    'redirect': url_for('web_bp.waiting_bay', sharing_url=sharing_url)
                 })
 
             else:
