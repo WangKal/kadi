@@ -1,10 +1,27 @@
-from flask import Flask, request, jsonify, session
+from flask import Blueprint, request, jsonify, session
 from sqlalchemy.orm import Session
 from models.user import User
 from models.engine.db import get_db
 
-api_bp = Flask(__name__)
-api_bp.secret_key = 'your_secret_key'  # Ensure you set a secret key for sessions
+# Define the Blueprint
+api_bp = Blueprint('api_bp', __name__)
+
+# Ensure you have these methods defined in your user model
+def create_user(db: Session) -> str:
+    unique_id = uuid.uuid4().hex
+    current_time = datetime.now()
+
+    user = User(
+        user_id=unique_id,
+        register_since=current_time
+    )
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+    return user.user_id
+
+def fetch_user_by_id(db: Session, user_id: str):
+    return db.query(User).filter(User.user_id == user_id).first()
 
 @api_bp.route('/set_cookies', methods=['POST'])
 def set_cookies():
