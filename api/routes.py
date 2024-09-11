@@ -132,7 +132,7 @@ def register_challenge():
             'message': f'Error: {str(e)}'
         }), 500
 @api_bp.route('/kadi_accept_challenge', methods=['POST'])
-def register_challenge():
+def kadi_accept_challenge():
 
     try:
         data = request.get_json()
