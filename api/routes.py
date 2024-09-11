@@ -69,9 +69,7 @@ def check_session():
 
 @api_bp.route('/register_challenge', methods=['POST'])
 def register_challenge():
-    response = requests.post('https://challengetrain.xyz/challenge/kadi_setup', json=payload)
-    print("Response content:", response.text)  # Log the raw response content
-    response_data = response.json()
+
     try:
         data = request.get_json()
         user_id =  session['userID']  # Example: Assume we get the user ID from session or token
@@ -87,8 +85,19 @@ def register_challenge():
 
             # Send a request to the external API
             response = requests.post('https://challengetrain.xyz/challenge/kadi_setup', json=payload)
-            response_data = response.json()
-            print(repr(response_data))
+            
+            # Log the raw response content
+            print("Response status code:", response.status_code)
+            print("Response content:", response.text)
+            
+            try:
+                response_data = response.json()
+            except ValueError:
+                # Handle JSON decoding errors
+                return jsonify({
+                    'status': False,
+                    'message': 'Invalid response format from external API.'
+                }), 500
 
             # Check if the external API call was successful
             if response.status_code == 200 and response_data.get('status') == 'success':
