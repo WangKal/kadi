@@ -69,6 +69,9 @@ def check_session():
 
 @api_bp.route('/register_challenge', methods=['POST'])
 def register_challenge():
+    response = requests.post('https://challengetrain.xyz/challenge/kadi_setup', json=payload)
+    print("Response content:", response.text)  # Log the raw response content
+    response_data = response.json()
     try:
         data = request.get_json()
         user_id =  session['userID']  # Example: Assume we get the user ID from session or token
