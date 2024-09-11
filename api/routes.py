@@ -140,14 +140,15 @@ def kadi_accept_challenge():
         data = request.get_json()
         user_id = session.get('userID')  # Example: Assume we get the user ID from session or token
         player_name = data.get('name')
-        player_name = data.get('link')
+        link = data.get('challenge_link')
 
         # Update the user's name in the database
         if update_user_name(user_id, player_name):
             # Prepare the payload for the external API
             payload = {
                 'name': player_name,
-                'user_id': user_id
+                'user_id': user_id,
+                'link':link
             }
 
             # Send a request to the external API
