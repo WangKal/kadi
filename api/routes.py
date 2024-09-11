@@ -102,13 +102,16 @@ def register_challenge():
             # Check if the external API call was successful
             if response.status_code == 200 and response_data.get('status') == 'success':
                 sharing_url = response_data.get('sharing_url')
+                challenge = response_data.get('sharing_url')
+                session['challenge'] = challenge
+                session['sharing_url'] = sharing_url
 
                 # Return a successful response with the sharing URL and redirect link
                 return jsonify({
                     'status': True,
                     'message': 'Challenge setup successful!',
                     'sharing_url': sharing_url,
-                    'redirect': url_for('web_bp.waiting_bay', sharing_url=sharing_url)
+                    'redirect': url_for('web_bp.waiting_bay')
                 })
 
             else:
