@@ -96,13 +96,13 @@ def register_challenge():
                 # Handle JSON decoding errors
                 return jsonify({
                     'status': False,
-                    'message': 'Invalid response format from external API.'
+                    'message': print("Response content:", response.text)
                 }), 500
 
             # Check if the external API call was successful
             if response.status_code == 200 and response_data.get('status') == 'success':
                 sharing_url = response_data.get('sharing_url')
-                challenge = response_data.get('sharing_url')
+                challenge = response_data.get('challenge')
                 session['challenge'] = challenge
                 session['sharing_url'] = sharing_url
 
