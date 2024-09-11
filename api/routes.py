@@ -31,7 +31,7 @@ def update_user_name(user_id, new_name):
         User.userName: new_name
     })
     db.commit()
-    return true
+    return True
 
 @api_bp.route('/set_cookies', methods=['POST'])
 def set_cookies():
