@@ -27,8 +27,8 @@ def waiting_bay():
 @web_bp.route('/kadi_invite/<link>', methods=['GET'])
 def kadi_invite(link):
     # Handle waiting bay logic here
-    print(link)
-    return render_template('kadi_accept_invite.html')
+    challenge_link = link
+    return render_template('kadi_accept_invite.html', challenge_link=challenge_link)
 
 
 @web_bp.route('/play')
