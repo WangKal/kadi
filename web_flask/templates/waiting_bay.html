@@ -7,16 +7,186 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+<style>
+@media (max-width: 1024px)  
+  {
+      #s-info {
+          display:none;
+      }
+  }
+  @media (min-width: 480px)  
+  {
+  .forgotpasswordplace{
+    width:60%;
+}    
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 40%;
+  aspect-ratio: 1;
+  display: grid;
+}
+.loader::before,
+.loader::after {    
+  content:"";
+  grid-area: 1/1;
+  --c:no-repeat radial-gradient(farthest-side,#25b09b 92%,#0000);
+  background: 
+    var(--c) 50%  0, 
+    var(--c) 50%  100%, 
+    var(--c) 100% 50%, 
+    var(--c) 0    50%;
+  background-size: 48px 48px;
+  animation: l12 1s infinite;
+}
+.loader::before {
+  margin: 4px;
+  filter: hue-rotate(45deg);
+  background-size: 32px 32px;
+  animation-timing-function: linear
+}
+
+@keyframes l12 { 
+  100%{transform: rotate(.5turn)}
+}
+.forgotpasswordplace{
+    width:60%;
+}
+}
+ @media (max-width: 480px)  
+  {
+      .container-fluid {
+          height:500px;
+      }
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 90%;
+  aspect-ratio: 1;
+  display: grid;
+}
+.loader::before,
+.loader::after {    
+  content:"";
+  grid-area: 1/1;
+  --c:no-repeat radial-gradient(farthest-side,#25b09b 92%,#0000);
+  background: 
+    var(--c) 50%  0, 
+    var(--c) 50%  100%, 
+    var(--c) 100% 50%, 
+    var(--c) 0    50%;
+  background-size: 36px 36px;
+  animation: l12 1s infinite;
+}
+.loader::before {
+  margin: 8px;
+  filter: hue-rotate(45deg);
+  background-size: 24px 24px;
+  animation-timing-function: linear
+}
+
+@keyframes l12 { 
+  100%{transform: rotate(.5turn)}
+}
+}
+</style>
+
+</head>
+
+
+
 <body>
-    <div class="waiting-bay-container">
-        <div class="waiting-message">
-            <h2>Please wait...</h2>
-            <p>Your game is about to start. Get ready!</p>
-            <div class="spinner-border text-primary" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
+
+  <!-- ======= Mobile nav toggle button ======= -->
+  <!-- <button type="button" class="mobile-nav-toggle d-xl-none"><i class="bi bi-list mobile-nav-toggle"></i></button> -->
+   <div class="jumbotron bg-primary">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-7 col-sm-offset-1 text-center-xs">
+            <h3 id="myModalLabel"><i class="fa fa-files-o"></i> &nbsp; &nbsp; 'Waiting Bay</h3>
+          </div>
+          <div class="col-sm-3">
+            <a class="btn btn-info btn-block btn-lg" > &nbsp;Welcome</a>
+            <br />
+          </div>
         </div>
+      </div>
     </div>
+ <div class="container-fluid" style="width: 100%;background-color:white;padding: 20px;margin:0">
+ 
+   <div class="forgotpasswordplace shadow" style="border:2px solid #ff3399;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;height: 100%;border-radius: 16px 16px 16px 16px;background: white;margin:0 auto;">
+      <div class="card-deck">
+           <div class="card" style="">
+      <div class=" card-header " style="color:black;">
+
+          
+              </div>
+    <div class=" card-body ">
+<div style="word-wrap: break-word;margin:10px;padding;text-align:center;"> <h4 >{{challenge_link}}</h4> 
+<button id=""  class="btn btn-lg btn-primary kadi_friend">Play with a friend </button>
+     </div>
+
+ <div class="loaderP" style="margin:0 auto;display: block;"><h4 id="s-info" style="color:#5cb85c;text-align:center;position:absolute;top:70%;left:40%;right:40%;margin:0 auto;"><b>Wait for the proceed button.</b></h4><div class="loader" style="width:60%;margin:0 auto"></div><p style="display: block;margin:0 auto;text-align: center;"> </p></div>
+
+<div><h3 style="text-align:center" id="message">Please wait as we set you up with a player</h3></div>
+
+
+
+</div>
+<div class=" card-footer ">
+    
+
+
+
+
+</div>
+
+
+</div>
+</div>
+</div>
+  </div>
+  
+  	<div id="type_play_prompt" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal_table">
+				<div class="modal-content modal_cell">
+					<div class="modal-header" style="background:#4eb2cf;color:white">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
+						<h3 id="myModalLabel" class="blink_me">
+					<span style="text-align:center">Let us give you options.</span></h3>
+					</div>
+					<div class="modal-body" style="padding-top:0;padding-bottom:0">
+					    
+					  <div style="padding:10px;text-align:center"><div id="type_play_msg"></div>
+					    <div class="row">
+					        <div class="col-md-12 button_holder" style="text-align:center"></div>
+	<!--				        <div class="col-md-6"></div> -->
+					        
+					    </div>
+					    
+					    
+					    </div>
+            </div>
+					    
+					    
+											<div class="modal-footer">
+						<div class="col-sm-12 text-center">
+						    	<button class="btn btn-default" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i>close</button>
+						    
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  
+</body>
+
+
+
+
+
+
+
+
+
 </body>
 </html>
 
