@@ -159,7 +159,7 @@
                     url: '/api/kadi_accept_challenge',  // Adjust URL to match your backend API
                     method: 'POST',
                     contentType: 'application/json',
-                    data: JSON.stringify({ name: playerName,challenge_link:challenge_link }),
+                    data: JSON.stringify({ name: playerName,challenge_link:'{{challenge_link}}' }),
                     success: function (response) {
                         if (response.status) {
                             alert('Successfully registered!'); // You can replace this with other logic
