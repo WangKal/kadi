@@ -31,6 +31,6 @@ class User(Base):
         db.commit()
         db.refresh(user)
         return user.user_id
-        
-    def fetch_user_by_id(db: Session, user_id: str):
-        return db.query(User).filter(User.user_id == user_id).first()
+
+def fetch_user_by_id(db: Session, user_id: str):
+    return db.query(User).filter(User.user_id == user_id).first()
