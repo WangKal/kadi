@@ -131,3 +131,67 @@ def register_challenge():
             'status': False,
             'message': f'Error: {str(e)}'
         }), 500
+@api_bp.route('/kadi_accept_challenge', methods=['POST'])
+def register_challenge():
+
+    try:
+        data = request.get_json()
+        user_id = session.get('userID')  # Example: Assume we get the user ID from session or token
+        player_name = data.get('name')
+        player_name = data.get('link')
+
+        # Update the user's name in the database
+        if update_user_name(user_id, player_name):
+            # Prepare the payload for the external API
+            payload = {
+                'name': player_name,
+                'user_id': user_id
+            }
+
+            # Send a request to the external API
+            response = requests.post('https://challengetrain.xyz/challenge/kadi_accept_challenge', json=payload)
+            
+            # Log the raw response content
+            print("Response status code:", response.status_code)
+            print("Response content:", response.text)
+            
+            try:
+                response_data = response.json()
+            except ValueError:
+                # Handle JSON decoding errors
+                return jsonify({
+                    'status': False,
+                    'message':  response.text+" "+user_id
+                }), 500
+
+            # Check if the external API call was successful
+            if response.status_code == 200 and response_data.get('status') == 'success':
+                challengeID = response_data.get('challengeID')
+                challenge = response_data.get('challenge')
+                session['challenge'] = challenge
+                session['challengeID'] = challengeID
+
+                # Return a successful response with the sharing URL and redirect link
+                return jsonify({
+                    'status': True,
+                    'message': 'Challenge setup successful!',
+                    'redirect': url_for('web_bp.waiting_bay')
+                })
+
+            else:
+                return jsonify({
+                    'status': False,
+                    'message': 'Failed to setup challenge.'
+                }), 400
+
+        else:
+            return jsonify({
+                'status': False,
+                'message': 'Failed to update user information.'
+            }), 400
+
+    except Exception as e:
+        return jsonify({
+            'status': False,
+            'message': f'Error: {str(e)}'
+        }), 500
