@@ -1,1 +1,180 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kadi Card Game</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home_styles.css') }}">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- AOS (Animate On Scroll) CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">Kadi Card Game</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Section -->
+    <section class="main-section vh-100 d-flex align-items-center" id="home">
+        <div class="container">
+            <div class="row align-items-center h-100">
+                <!-- Left Column -->
+                <div class="col-md-6" data-aos="fade-right">
+                    <h1 class="display-4 fw-bold">Welcome to Kadi Card Game</h1>
+                    <img src="{{ url_for('static', filename='images/card-deck-155284_1280.png') }}" alt="Card Game" class="img-fluid mt-4 rounded shadow">
+                </div>
+                <!-- Right Column -->
+                <div class="col-md-6 d-flex flex-column justify-content-center" data-aos="fade-left">
+                    <h2><u>Kadi</u></h2>
+                    <p class="lead">Experience the ultimate card game adventure. Challenge your friends and showcase your skills!</p>
+                    
+                <p>Kadi offers an immersive experience where strategy meets fun. Whether you're a beginner or a seasoned player, our game provides endless hours of entertainment.</p>
+                   <button class="btn btn-primary btn-lg mt-3" data-bs-toggle="modal" data-bs-target="#nameModal">Accept Challenge</button>
+                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-5 bg-light" id="about">
+        <div class="container">
+            <h2 class="text-center mb-4">About</h2>
+            <p class="text-center">Kadi is designed to bring players together through engaging and competitive gameplay. Our mission is to create a community where players can enjoy card games in a dynamic and interactive environment.</p>
+        </div>
+    </section>
+    <!-- Modal -->
+    <div class="modal fade" id="nameModal" tabindex="-1" aria-labelledby="nameModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="nameModalLabel">Enter Your Name</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    
+                        <div class="mb-3">
+                            <label for="playerName" class="form-label">Your Name</label>
+                            <input type="text" class="form-control" id="playerName" name="playerName" required>
+                        </div>
+                        <button type="submit" id="nameForm" class="btn btn-primary">Proceed</button>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        &copy; 2024 CardGame. All rights reserved.
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS (Animate On Scroll) JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <!-- Initialize AOS -->
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+    </script>
+     <script>
+        $(document).ready(function() {
+            $.ajax({
+                method: 'GET',
+                url: '/api/check_session',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status) {
+                        console.log("User ID from session:", response.user_id);
+                    } else {
+                        console.log("No user session found.");
+                        setCookie();
+                    }
+                }
+            });
+
+            function setCookie() {
+                $.ajax({
+                    method: 'POST',
+                    url: '/api/set_cookies',
+                    contentType: 'application/json',
+                    data: JSON.stringify({}),
+                    dataType: 'json',
+                    success: function(response) {
+                        document.cookie = "user_id=" + response.user_cookie + ";";
+                        console.log("Cookie set:", document.cookie);
+                    }
+                });
+            }
+
+            function getCookie(cname) {
+                let name = cname + "=";
+                let decodedCookie = decodeURIComponent(document.cookie);
+                let ca = decodedCookie.split(';');
+                
+                for (let i = 0; i < ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+             // Handle form submission
+            $('#nameForm').on('click', function (e) {
+                e.preventDefault();
+                
+                let playerName = $('#playerName').val();
+
+                // Make the AJAX call to the backend
+                $.ajax({
+                    url: '/api/kadi_accept_challenge',  // Adjust URL to match your backend API
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ name: playerName }),
+                    success: function (response) {
+                        if (response.status) {
+                            alert('Successfully registered!'); // You can replace this with other logic
+                            $('#nameModal').modal('hide'); // Close the modal
+                            window.location.href = response.redirect;
+                        } else {
+                            alert('There was an error, please try again.');
+                        }
+                    },
+                    error: function () {
+                        alert('API call failed.');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
