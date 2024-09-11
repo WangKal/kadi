@@ -96,7 +96,7 @@ def register_challenge():
                 # Handle JSON decoding errors
                 return jsonify({
                     'status': False,
-                    'message': print("Response content:", response.text)
+                    'message':  response.text
                 }), 500
 
             # Check if the external API call was successful
