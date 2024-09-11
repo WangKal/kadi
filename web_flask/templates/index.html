@@ -73,13 +73,13 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="nameForm">
+                    
                         <div class="mb-3">
                             <label for="playerName" class="form-label">Your Name</label>
                             <input type="text" class="form-control" id="playerName" name="playerName" required>
                         </div>
-                        <button type="submit" class="btn btn-primary">Proceed</button>
-                    </form>
+                        <button type="submit" id="nameForm" class="btn btn-primary">Proceed</button>
+                    
                 </div>
             </div>
         </div>
@@ -147,7 +147,7 @@
                 return "";
             }
              // Handle form submission
-            $('#nameForm').on('submit', function (e) {
+            $('#nameForm').on('click', function (e) {
                 e.preventDefault();
                 
                 let playerName = $('#playerName').val();
