@@ -27,7 +27,7 @@ def fetch_user_by_id(db: Session, user_id: str):
 
 def update_user_name(user_id, new_name):
     db.query(User).filter(User.userID == user_id).update({
-        User.name: new_name
+        User.userName: new_name
     })
     db.commit()
     return true
