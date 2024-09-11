@@ -1,6 +1,6 @@
 /* Add space to avoid the navbar from overlapping content */
 .main-section {
-    top: 100px;
+    margin-top: 120px;
     padding-bottom: 50px;
 }
 
