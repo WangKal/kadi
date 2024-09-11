@@ -173,6 +173,7 @@ def kadi_accept_challenge():
                 challenge = response_data.get('challenge')
                 session['challenge'] = challenge
                 session['challengeID'] = challengeID
+                session['sharing_url'] = ""
 
                 # Return a successful response with the sharing URL and redirect link
                 return jsonify({
