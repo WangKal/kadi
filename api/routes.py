@@ -85,6 +85,7 @@ def register_challenge():
             # Send a request to the external API
             response = requests.post('https://challengetrain.xyz/challenge/kadi_setup', json=payload)
             response_data = response.json()
+            print(repr(response_data))
 
             # Check if the external API call was successful
             if response.status_code == 200 and response_data.get('status') == 'success':
