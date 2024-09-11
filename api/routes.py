@@ -26,17 +26,11 @@ def fetch_user_by_id(db: Session, user_id: str):
     return db.query(User).filter(User.user_id == user_id).first()
 
 def update_user_name(user_id, new_name):
-    # Your logic to update the user's name in the database
-    # For this example, assume we have a mock database
-    users_db = {
-        1: {"name": "Player1"},
-        2: {"name": "Player2"},
-    }
-    
-    if user_id in users_db:
-        users_db[user_id]['name'] = new_name
-        return True
-    return False
+    db.query(User).filter(User.userID == user_id).update({
+        User.name: new_name
+    })
+    db.commit()
+    return true
 
 @api_bp.route('/set_cookies', methods=['POST'])
 def set_cookies():
