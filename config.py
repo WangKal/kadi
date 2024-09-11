@@ -1,6 +1,6 @@
 import os
 
 class Config:
-    SECRET_KEY = os.getenv('SECRET_KEY', 'your_secret_key')
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'mysql+pymysql://your_user:your_password@localhost/kadi_db')
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'mysql+pymysql://wangkal:WangKal2024#@localhost/kadi')
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
