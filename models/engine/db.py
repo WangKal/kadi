@@ -3,9 +3,16 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from config import Config
 
+# Create engine
 engine = create_engine(Config.SQLALCHEMY_DATABASE_URI)
-db_session = scoped_session(sessionmaker(autocommit=False,autoflush=False,bind=engine))
 
+# Define SessionLocal
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+# Create a scoped session
+db_session = scoped_session(SessionLocal)
+
+# Create a declarative base
 Base = declarative_base()
 Base.query = db_session.query_property()
 
@@ -15,9 +22,8 @@ def init_db():
 
 # Dependency to get the database session
 def get_db():
-    db = SessionLocal()
+    db = SessionLocal()  # Create a new session
     try:
         yield db
     finally:
-        db.close()
-
+        db.close()  # Close the session
