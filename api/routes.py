@@ -79,8 +79,7 @@ def register_challenge():
         if update_user_name(user_id, player_name):
             # Prepare the payload for the external API
             payload = {
-                'name': user_id,
-                'user_id': user_id
+
             }
 
             # Send a request to the external API
