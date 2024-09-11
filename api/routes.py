@@ -31,3 +31,10 @@ def fetch_cookies():
         })
     else:
         return jsonify({'status': False})
+
+@app.route('/check_session', methods=['GET'])
+def check_session():
+    if 'userID' in session:
+        return jsonify({'user_id': session['userID'], 'status': True})
+    else:
+        return jsonify({'status': False})
