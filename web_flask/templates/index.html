@@ -163,6 +163,7 @@
                         if (response.status) {
                             alert('Successfully registered!'); // You can replace this with other logic
                             $('#nameModal').modal('hide'); // Close the modal
+                            window.location.href = response.redirect;
                         } else {
                             alert('There was an error, please try again.');
                         }
