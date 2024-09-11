@@ -21,6 +21,13 @@ def waiting_bay():
     # Handle waiting bay logic here
     return render_template('waiting_bay.html')
 
+@web_bp.route('/kadi_invite/<link>')
+def kadi_invite(link):
+    # Handle waiting bay logic here
+    print(link)
+    return render_template('waiting_bay.html')
+
+
 @web_bp.route('/play')
 def play():
     # Handle play logic here
