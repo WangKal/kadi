@@ -25,6 +25,19 @@ def create_user(db: Session) -> str:
 def fetch_user_by_id(db: Session, user_id: str):
     return db.query(User).filter(User.user_id == user_id).first()
 
+def update_user_name(user_id, new_name):
+    # Your logic to update the user's name in the database
+    # For this example, assume we have a mock database
+    users_db = {
+        1: {"name": "Player1"},
+        2: {"name": "Player2"},
+    }
+    
+    if user_id in users_db:
+        users_db[user_id]['name'] = new_name
+        return True
+    return False
+
 @api_bp.route('/set_cookies', methods=['POST'])
 def set_cookies():
     db = next(get_db())
@@ -57,3 +70,52 @@ def check_session():
         return jsonify({'user_id': session['userID'], 'status': True})
     else:
         return jsonify({'status': False})
+
+@api_bp.route('/register_challenge', methods=['POST'])
+def register_challenge():
+    try:
+        data = request.get_json()
+        user_id =  session['userID']  # Example: Assume we get the user ID from session or token
+        player_name = data.get('name')
+
+        # Update the user's name in the database
+        if update_user_name(user_id, player_name):
+            # Prepare the payload for the external API
+            payload = {
+                'name': player_name,
+                'user_id': user_id
+            }
+
+            # Send a request to the external API
+            response = requests.post('https://challengetrain.xyz/challenge/kadi_setup', json=payload)
+            response_data = response.json()
+
+            # Check if the external API call was successful
+            if response.status_code == 200 and response_data.get('status') == 'success':
+                sharing_url = response_data.get('sharing_url')
+
+                # Return a successful response with the sharing URL and redirect link
+                return jsonify({
+                    'status': True,
+                    'message': 'Challenge setup successful!',
+                    'sharing_url': sharing_url,
+                    'redirect': url_for('waiting_bay', sharing_url=sharing_url)
+                })
+
+            else:
+                return jsonify({
+                    'status': False,
+                    'message': 'Failed to setup challenge.'
+                }), 400
+
+        else:
+            return jsonify({
+                'status': False,
+                'message': 'Failed to update user information.'
+            }), 400
+
+    except Exception as e:
+        return jsonify({
+            'status': False,
+            'message': f'Error: {str(e)}'
+        }), 500
