@@ -26,6 +26,7 @@ def fetch_user_by_id(db: Session, user_id: str):
     return db.query(User).filter(User.user_id == user_id).first()
 
 def update_user_name(user_id, new_name):
+    db = next(get_db())
     db.query(User).filter(User.userID == user_id).update({
         User.userName: new_name
     })
