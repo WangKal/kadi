@@ -103,7 +103,9 @@ def register_challenge():
             if response.status_code == 200 and response_data.get('status') == 'success':
                 sharing_url = response_data.get('sharing_url')
                 challenge = response_data.get('challenge')
+                challengeID = response_data.get('challengeID')
                 session['challenge'] = challenge
+                session['challengeID'] = challengeID
                 session['sharing_url'] = sharing_url
 
                 # Return a successful response with the sharing URL and redirect link
