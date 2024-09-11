@@ -1,7 +1,6 @@
+from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.orm import Session
-from sqlalchemy import func
 from datetime import datetime
-import hashlib
 import uuid
 from .engine.db import Base
 
@@ -19,20 +18,19 @@ class User(Base):
     last_login = Column(Integer)
     user_ip = Column(String(45))
 
-    # User creation function
     @staticmethod
-def create_user(db: Session) -> str:
-    unique_id = uuid.uuid4().hex
-    current_time = datetime.now()
+    def create_user(db: Session) -> str:
+        unique_id = uuid.uuid4().hex
+        current_time = datetime.now()
 
-    user = User(
-        user_id=unique_id,
-        register_since=current_time
-    )
-    db.add(user)
-    db.commit()
-    db.refresh(user)
-    return user.user_id
-
-def fetch_user_by_id(db: Session, user_id: str):
-    return db.query(User).filter(User.user_id == user_id).first()
+        user = User(
+            user_id=unique_id,
+            register_since=current_time
+        )
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+        return user.user_id
+        
+    def fetch_user_by_id(db: Session, user_id: str):
+        return db.query(User).filter(User.user_id == user_id).first()
