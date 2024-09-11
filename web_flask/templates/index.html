@@ -51,8 +51,8 @@
                     <p class="lead">Experience the ultimate card game adventure. Challenge your friends and showcase your skills!</p>
                     
                 <p>Kadi offers an immersive experience where strategy meets fun. Whether you're a beginner or a seasoned player, our game provides endless hours of entertainment.</p>
-                    <a href="#play" class="btn btn-primary btn-lg mt-3">Play the Game</a>
-                </div>
+                   <button class="btn btn-primary btn-lg mt-3" data-bs-toggle="modal" data-bs-target="#nameModal">Play the Game</button>
+                 </div>
             </div>
         </div>
     </section>
@@ -60,11 +60,30 @@
     <!-- About Section -->
     <section class="py-5 bg-light" id="about">
         <div class="container">
-            <h2 class="text-center mb-4">Aboute</h2>
+            <h2 class="text-center mb-4">About</h2>
             <p class="text-center">Kadi is designed to bring players together through engaging and competitive gameplay. Our mission is to create a community where players can enjoy card games in a dynamic and interactive environment.</p>
         </div>
     </section>
-
+    <!-- Modal -->
+    <div class="modal fade" id="nameModal" tabindex="-1" aria-labelledby="nameModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="nameModalLabel">Enter Your Name</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="nameForm">
+                        <div class="mb-3">
+                            <label for="playerName" class="form-label">Your Name</label>
+                            <input type="text" class="form-control" id="playerName" name="playerName" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Proceed</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Footer -->
     <footer class="bg-dark text-white text-center py-3">
         &copy; 2024 CardGame. All rights reserved.
@@ -127,6 +146,31 @@
                 }
                 return "";
             }
+             // Handle form submission
+            $('#nameForm').on('submit', function (e) {
+                e.preventDefault();
+                
+                let playerName = $('#playerName').val();
+
+                // Make the AJAX call to the backend
+                $.ajax({
+                    url: '/api/register_challenge',  // Adjust URL to match your backend API
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ name: playerName }),
+                    success: function (response) {
+                        if (response.status) {
+                            alert('Successfully registered!'); // You can replace this with other logic
+                            $('#nameModal').modal('hide'); // Close the modal
+                        } else {
+                            alert('There was an error, please try again.');
+                        }
+                    },
+                    error: function () {
+                        alert('API call failed.');
+                    }
+                });
+            });
         });
     </script>
 </body>
