@@ -5,6 +5,7 @@ from api import init_app as init_api
 # Initialize models and API
 init_models(app)
 init_api(app)
+app.secret_key = 'your_secret_key'  # Set the secret key for session management
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5005',debug=True)
