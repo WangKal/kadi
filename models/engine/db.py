@@ -13,3 +13,11 @@ def init_db():
     import models  # Import all models here to ensure they are registered properly on the metadata
     Base.metadata.create_all(bind=engine)
 
+# Dependency to get the database session
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
