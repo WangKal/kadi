@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, session
 from sqlalchemy.orm import Session
-from models.user import create_user, fetch_user_by_id
+from models.User import create_user, fetch_user_by_id
 from models.engine.db import get_db
 
 app = Flask(__name__)
