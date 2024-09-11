@@ -21,33 +21,18 @@ class User(Base):
 
     # User creation function
     @staticmethod
-    def create_user(db: Session, password: str, salt: str) -> str:
-        unique_id = uuid.uuid4().hex
-        hashed_password = hashlib.sha1((password + salt).encode()).hexdigest()
-        user = User(
-            user_id=unique_id,
-            password=hashed_password,
-            register_since=datetime.now(),
-            password_reset=hashlib.sha1('panadol71oking56wangkal93'.encode()).hexdigest()
-        )
-        db.add(user)
-        db.commit()
-        db.refresh(user)
-        return user.user_id
+def create_user(db: Session) -> str:
+    unique_id = uuid.uuid4().hex
+    current_time = datetime.now()
 
-    # Update user information
-    @staticmethod
-    def update_user(db: Session, user_id_db: int, unique_id: str):
-        db.query(User).filter(User.userID == user_id_db).update({
-            User.user_id: unique_id,
-            User.userName: unique_id,
-            User.email: unique_id,
-            User.last_login: int(datetime.timestamp(datetime.now())),
-            User.user_ip: func.current_user_ip()  # Assuming a custom function to get the IP
-        })
-        db.commit()
+    user = User(
+        user_id=unique_id,
+        register_since=current_time
+    )
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+    return user.user_id
 
-    # Fetch user by user_id
-    @staticmethod
-    def fetch_user_by_id(db: Session, user_id: str):
-        return db.query(User).filter(User.user_id == user_id).first()
+def fetch_user_by_id(db: Session, user_id: str):
+    return db.query(User).filter(User.user_id == user_id).first()
