@@ -72,7 +72,7 @@ def register_challenge():
 
     try:
         data = request.get_json()
-        user_id =  session['userID']  # Example: Assume we get the user ID from session or token
+        user_id =  user_id = session.get('userID')  # Example: Assume we get the user ID from session or token
         player_name = data.get('name')
 
         # Update the user's name in the database
