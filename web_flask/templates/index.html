@@ -9,7 +9,54 @@
 <body>
     <h1>Welcome to Kadi Card Game</h1>
     <!-- Content here -->
-    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+     <script>
+        $(document).ready(function() {
+            $.ajax({
+                method: 'GET',
+                url: '/api/check_session',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status) {
+                        console.log("User ID from session:", response.user_id);
+                    } else {
+                        console.log("No user session found.");
+                        setCookie();
+                    }
+                }
+            });
+
+            function setCookie() {
+                $.ajax({
+                    method: 'POST',
+                    url: '/api/set_cookies',
+                    contentType: 'application/json',
+                    data: JSON.stringify({}),
+                    dataType: 'json',
+                    success: function(response) {
+                        document.cookie = "user_id=" + response.user_cookie + ";";
+                        console.log("Cookie set:", document.cookie);
+                    }
+                });
+            }
+
+            function getCookie(cname) {
+                let name = cname + "=";
+                let decodedCookie = decodeURIComponent(document.cookie);
+                let ca = decodedCookie.split(';');
+                
+                for (let i = 0; i < ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+        });
+    </script>
 </body>
 </html>
 
