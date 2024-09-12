@@ -185,6 +185,96 @@
 
 
 
+    <script type="text/javascript">
+$(document).ready(function(){
+   
+setInterval(function () {
+ $.ajax({
+            url : 'challenge/availabilty_check',
+            type: "POST",
+            data:{'challengeID':11,'challenge':{{challenge}}},
+            
+            dataType: "JSON",
+            success: function(data)
+            {
+              if(data.button_ask=="true")
+              {
+                $('#message').text('Click on the button below to proceed');
+               setTimeout(end_wait2(), 5000);
+                $('#confirm_button').show();
+              }
+               else if(data.button_ask=="false")
+               {
+                $('#message').text('Waiting on your opponent...');
+                $('#confirm_button').hide();
+                             } 
+               if(data.proceed=="true") 
+               {
+                $('#message').text('Please wait as you are redirected to the challenge');
+              
+                setTimeout(take_challenge(data.redirect), 5000);
+               
+                }
+              if(data.schedule_wait=='unavailable'){
+            $('#message').text('Your challenge opponent is unavailable.You will be redirected to the home page to choose another challenge');
+                setTimeout(end_waiting2(), 5000);
+                
+              
+            }
+        }
+        });
+
+ $.ajax({
+            url : 'challenge/kadi_play_check',
+            type: "POST",
+            data:{'challengeID':11,'challenge':{{challenge}}},
+            
+            dataType: "JSON",
+            success: function(data)
+            {
+              
+            }
+        });
+
+
+
+},1000);
+
+
+
+
+
+function end_wait2(){
+    var link = 'challenge/challenge_confirm';
+    $('#tpb').remove();
+    $('#confirm_holder').remove();
+    $('#type_play_msg').html('<p>Player two is ready.Click the proceed button to continue</p>');
+    $('<div id="confirm_holder"style="margin:0 auto;display: block;text-align: center;"><button id="confirm_button"  type="button" class="btn btn-success btn-lg" style="margin:10px;display:none"> Proceed to challenge</button></div>').appendTo('.button_holder');
+$('#type_play_prompt').modal('show');    
+}
+ 
+function take_challenge(d){
+window.location.href =d;    
+}
+$('body').on('click','#confirm_button',function(){
+$.ajax({
+            url : 'challenge/availabilty_confirm',
+            type: "POST",
+            data:{'status':'proceed','challengeID':{{challengeID}}'},
+            dataType: "JSON",
+            success: function(data)
+            {
+              
+            }
+        })
+
+});
+
+})
+</script>
+
+
+
 
 
 </body>
