@@ -221,13 +221,6 @@ def kadi_play_check():
         print("Response status code:", response.status_code)
         print("Response content:", response.text)
         
-        try:
-            response_data = response.json()
-        except ValueError:
-            return jsonify({
-                'status': False,
-                'message': response.text + " " + user_id
-            }), 500
 
         if response.status_code == 200 :
             return response_text
@@ -262,13 +255,6 @@ def availability_confirm():
         print("Response status code:", response.status_code)
         print("Response content:", response.text)
 
-        try:
-            response_data = response.json()
-        except ValueError:
-            return jsonify({
-                'status': False,
-                'message': response.text + " " + user_id
-            }), 500
 
         if response.status_code == 200 :
             return response_text
@@ -303,13 +289,6 @@ def availability_check():
         print("Response status code:", response.status_code)
         print("Response content:", response.text)
 
-        try:
-            response_data = response.json()
-        except ValueError:
-            return jsonify({
-                'status': False,
-                'message': response.text + " " + user_id
-            }), 500
 
         if response.status_code == 200 :
             return response_text
