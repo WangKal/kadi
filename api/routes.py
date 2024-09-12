@@ -223,7 +223,7 @@ def kadi_play_check():
         
 
         if response.status_code == 200 :
-            return response_text
+            return response.text
         else:
             return jsonify({
                 'status': False,
@@ -257,7 +257,7 @@ def availability_confirm():
 
 
         if response.status_code == 200 :
-            return response_text
+            return response.text
         else:
             return jsonify({
                 'status': False,
@@ -291,7 +291,7 @@ def availability_check():
 
 
         if response.status_code == 200 :
-            return response_text
+            return response.text
         else:
             return jsonify({
                 'status': False,
