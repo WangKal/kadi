@@ -195,6 +195,7 @@ setInterval(function () {
             type: "POST",
             data:JSON.stringify({challengeID:11,challenge:{{challenge}}}),
 	contentType: 'application/json',
+	dataType: "JSON", 
             success: function(data)
             {
               if(data.button_ask=="true")
