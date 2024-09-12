@@ -260,7 +260,7 @@ $('body').on('click','#confirm_button',function(){
 $.ajax({
             url : '/availabilty_confirm',
             type: "POST",
-            data:{'status':'proceed','challengeID':{{challengeID}}'},
+            data:{'status':'proceed','challengeID':{{challengeID}}},
             dataType: "JSON",
             success: function(data)
             {
