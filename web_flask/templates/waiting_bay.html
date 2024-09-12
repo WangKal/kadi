@@ -195,7 +195,7 @@ setInterval(function () {
             type: "POST",
             data:{'challengeID':11,'challenge':{{challenge}}},
             
-            dataType: "JSON",
+            dataType: "application/json",
             success: function(data)
             {
               if(data.button_ask=="true")
@@ -230,7 +230,7 @@ setInterval(function () {
             type: "POST",
             data:{'challengeID':11,'challenge':{{challenge}}},
             
-            dataType: "JSON",
+            dataType: "application/json",
             success: function(data)
             {
               
@@ -262,7 +262,7 @@ $.ajax({
             url : '/api/availabilty_confirm',
             type: "POST",
             data:{'status':'proceed','challengeID':{{challengeID}}},
-            dataType: "JSON",
+            dataType: "application/json",
             success: function(data)
             {
               
