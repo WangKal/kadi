@@ -262,7 +262,7 @@ window.location.href =d;
 }
 $('body').on('click','#confirm_button',function(){
 $.ajax({
-            url : '/api/availabilty_confirm',
+            url : '/api/availability_confirm',
             type: "POST",
             data:JSON.stringify({status:'proceed',challengeID:{{challengeID}}}),
 	    contentType: 'application/json',
