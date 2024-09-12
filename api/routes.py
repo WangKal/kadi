@@ -257,7 +257,7 @@ def availability_confirm():
             'challenge': challenge
         }
 
-        response = requests.post('https://challengetrain.xyz/challenge/availability_confirm', json=payload)
+        response = requests.post('https://challengetrain.xyz/challenge/availabilty_confirm', json=payload)
 
         print("Response status code:", response.status_code)
         print("Response content:", response.text)
@@ -298,7 +298,7 @@ def availability_check():
             'challenge': challenge
         }
 
-        response = requests.post('https://challengetrain.xyz/challenge/availability_check', json=payload)
+        response = requests.post('https://challengetrain.xyz/challenge/availabilty_check', json=payload)
 
         print("Response status code:", response.status_code)
         print("Response content:", response.text)
