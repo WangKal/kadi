@@ -193,10 +193,8 @@ setInterval(function () {
  $.ajax({
             url : '/api/availability_check',
             type: "POST",
-            data:{'challengeID':11,'challenge':{{challenge}}},
+            data:JSON.stringify({challengeID:11,challenge:{{challenge}}}),
 	contentType: 'application/json',
-            
-            dataType: "application/json",
             success: function(data)
             {
               if(data.button_ask=="true")
@@ -229,10 +227,8 @@ setInterval(function () {
  $.ajax({
             url : '/api/kadi_play_check',
             type: "POST",
-            data:{'challengeID':11,'challenge':{{challenge}}},
+            data:JSON.stringify({challengeID:11,challenge:{{challenge}}}),
 	    contentType: 'application/json',
-            
-            dataType: "application/json",
             success: function(data)
             {
               
@@ -263,8 +259,7 @@ $('body').on('click','#confirm_button',function(){
 $.ajax({
             url : '/api/availabilty_confirm',
             type: "POST",
-            data:{'status':'proceed','challengeID':{{challengeID}}},
-            dataType: "application/json",
+            data:JSON.stringify({status:'proceed',challengeID:{{challengeID}}}),
 	    contentType: 'application/json',
             success: function(data)
             {
