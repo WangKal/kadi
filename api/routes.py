@@ -247,7 +247,7 @@ def availability_confirm():
         payload = {
             'challenge_id': challenge_id,
             'user_id': user_id,
-            'challenge': challenge
+            'challenge': challenge,
             'status':'proceed'
         }
 
