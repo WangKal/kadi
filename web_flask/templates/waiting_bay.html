@@ -191,7 +191,7 @@ $(document).ready(function(){
    
 setInterval(function () {
  $.ajax({
-            url : 'challenge/availabilty_check',
+            url : '/availabilty_check',
             type: "POST",
             data:{'challengeID':11,'challenge':{{challenge}}},
             
