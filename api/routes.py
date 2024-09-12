@@ -248,6 +248,7 @@ def availability_confirm():
             'challenge_id': challenge_id,
             'user_id': user_id,
             'challenge': challenge
+            'status':'proceed'
         }
 
         response = requests.post('https://challengetrain.xyz/challenge/availabilty_confirm', json=payload)
