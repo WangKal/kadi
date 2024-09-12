@@ -194,6 +194,7 @@ setInterval(function () {
             url : '/api/availability_check',
             type: "POST",
             data:{'challengeID':11,'challenge':{{challenge}}},
+	contentType: 'application/json',
             
             dataType: "application/json",
             success: function(data)
@@ -229,6 +230,7 @@ setInterval(function () {
             url : '/api/kadi_play_check',
             type: "POST",
             data:{'challengeID':11,'challenge':{{challenge}}},
+	    contentType: 'application/json',
             
             dataType: "application/json",
             success: function(data)
@@ -263,6 +265,7 @@ $.ajax({
             type: "POST",
             data:{'status':'proceed','challengeID':{{challengeID}}},
             dataType: "application/json",
+	    contentType: 'application/json',
             success: function(data)
             {
               
