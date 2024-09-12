@@ -191,7 +191,7 @@ $(document).ready(function(){
    
 setInterval(function () {
  $.ajax({
-            url : '/availabilty_check',
+            url : '/api/availabilty_check',
             type: "POST",
             data:{'challengeID':11,'challenge':{{challenge}}},
             
@@ -226,7 +226,7 @@ setInterval(function () {
         });
 
  $.ajax({
-            url : '/kadi_play_check',
+            url : '/api/kadi_play_check',
             type: "POST",
             data:{'challengeID':11,'challenge':{{challenge}}},
             
@@ -246,7 +246,7 @@ setInterval(function () {
 
 
 function end_wait2(){
-    var link = '/challenge_confirm';
+    var link = '/api/challenge_confirm';
     $('#tpb').remove();
     $('#confirm_holder').remove();
     $('#type_play_msg').html('<p>Player two is ready.Click the proceed button to continue</p>');
@@ -259,7 +259,7 @@ window.location.href =d;
 }
 $('body').on('click','#confirm_button',function(){
 $.ajax({
-            url : '/availabilty_confirm',
+            url : '/api/availabilty_confirm',
             type: "POST",
             data:{'status':'proceed','challengeID':{{challengeID}}},
             dataType: "JSON",
