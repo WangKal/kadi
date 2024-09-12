@@ -199,3 +199,187 @@ def kadi_accept_challenge():
             'status': False,
             'message': f'Error: {str(e)}'
         }), 500
+@api_bp.route('/kadi_play_check', methods=['POST'])
+def kadi_play_check():
+
+    try:
+        data = request.get_json()
+        user_id = session.get('userID')  # Example: Assume we get the user ID from session or token
+        challengeID = data.get('challengeID')
+        challenge = data.get('challenge')
+
+            # Prepare the payload for the external API
+            payload = {
+                'challenge_id': challenge_id,
+                'user_id': user_id,
+                'challenge':challenge
+            }
+
+            # Send a request to the external API
+            response = requests.post('https://challengetrain.xyz/challenge/kadi_play_check', json=payload)
+            
+            # Log the raw response content
+            print("Response status code:", response.status_code)
+            print("Response content:", response.text)
+            
+            try:
+                response_data = response.json()
+            except ValueError:
+                # Handle JSON decoding errors
+                return jsonify({
+                    'status': False,
+                    'message':  response.text+" "+user_id
+                }), 500
+
+            # Check if the external API call was successful
+            if response.status_code == 200 and response_data.get('status') == 'success':
+                challengeID = response_data.get('challengeID')
+                challenge = response_data.get('challenge')
+                session['challenge'] = challenge
+                session['challengeID'] = challengeID
+                session['sharing_url'] = ""
+
+                # Return a successful response with the sharing URL and redirect link
+                return response_data
+
+            else:
+                return jsonify({
+                    'status': False,
+                    'message': 'Failed to setup challenge.'
+                }), 400
+
+        else:
+            return jsonify({
+                'status': False,
+                'message': 'Failed to update user information.'
+            }), 400
+
+    except Exception as e:
+        return jsonify({
+            'status': False,
+            'message': f'Error: {str(e)}'
+        }), 500
+        @api_bp.route('/availabilty_confirm', methods=['POST'])
+def availabilty_confirm():
+
+    try:
+        data = request.get_json()
+        user_id = session.get('userID')  # Example: Assume we get the user ID from session or token
+        challengeID = data.get('challengeID')
+        challenge = data.get('challenge')
+
+            # Prepare the payload for the external API
+            payload = {
+                'challenge_id': challenge_id,
+                'user_id': user_id,
+                'challenge':challenge
+            }
+
+            # Send a request to the external API
+            response = requests.post('https://challengetrain.xyz/challenge/availabilty_confirm', json=payload)
+            
+            # Log the raw response content
+            print("Response status code:", response.status_code)
+            print("Response content:", response.text)
+            
+            try:
+                response_data = response.json()
+            except ValueError:
+                # Handle JSON decoding errors
+                return jsonify({
+                    'status': False,
+                    'message':  response.text+" "+user_id
+                }), 500
+
+            # Check if the external API call was successful
+            if response.status_code == 200 and response_data.get('status') == 'success':
+                challengeID = response_data.get('challengeID')
+                challenge = response_data.get('challenge')
+                session['challenge'] = challenge
+                session['challengeID'] = challengeID
+                session['sharing_url'] = ""
+
+                # Return a successful response with the sharing URL and redirect link
+                return response_data
+
+            else:
+                return jsonify({
+                    'status': False,
+                    'message': 'Failed to setup challenge.'
+                }), 400
+
+        else:
+            return jsonify({
+                'status': False,
+                'message': 'Failed to update user information.'
+            }), 400
+
+    except Exception as e:
+        return jsonify({
+            'status': False,
+            'message': f'Error: {str(e)}'
+        }), 500
+        @api_bp.route('/availabilty_check', methods=['POST'])
+def availabilty_check():
+
+    try:
+        data = request.get_json()
+        user_id = session.get('userID')  # Example: Assume we get the user ID from session or token
+        challengeID = data.get('challengeID')
+        challenge = data.get('challenge')
+
+            # Prepare the payload for the external API
+            payload = {
+                'challenge_id': challenge_id,
+                'user_id': user_id,
+                'challenge':challenge
+            }
+
+            # Send a request to the external API
+            response = requests.post('https://challengetrain.xyz/challenge/availabilty_check', json=payload)
+            
+            # Log the raw response content
+            print("Response status code:", response.status_code)
+            print("Response content:", response.text)
+            
+            try:
+                response_data = response.json()
+            except ValueError:
+                # Handle JSON decoding errors
+                return jsonify({
+                    'status': False,
+                    'message':  response.text+" "+user_id
+                }), 500
+
+            # Check if the external API call was successful
+            if response.status_code == 200 and response_data.get('status') == 'success':
+                challengeID = response_data.get('challengeID')
+                challenge = response_data.get('challenge')
+                session['challenge'] = challenge
+                session['challengeID'] = challengeID
+                session['sharing_url'] = ""
+
+                # Return a successful response with the sharing URL and redirect link
+                return jsonify({
+                    'status': True,
+                    'message': 'Challenge setup successful!',
+                    'redirect': url_for('web_bp.waiting_bay')
+                })
+
+            else:
+                return jsonify({
+                    'status': False,
+                    'message': 'Failed to setup challenge.'
+                }), 400
+
+        else:
+            return jsonify({
+                'status': False,
+                'message': 'Failed to update user information.'
+            }), 400
+
+    except Exception as e:
+        return jsonify({
+            'status': False,
+            'message': f'Error: {str(e)}'
+        }), 500
