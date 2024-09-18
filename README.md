@@ -1,3 +1,5 @@
+Kadi
+
 Introduction
 The Kadi Web App is a platform where users can log in or create an account using cookies for session management. The app integrates with the card game Kadi (a variation of poker popular in Kenya), providing a seamless setup experience for players. Once authenticated, users are redirected to the Kadi game playing page.
 
